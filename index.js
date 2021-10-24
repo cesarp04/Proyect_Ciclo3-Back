@@ -1,9 +1,12 @@
 const express = require("express");
-const app = express();
+
 const routes = require("./routes");
 
 const port = 3070;
+const app = express();
 
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(routes);
 
 app.listen(port, () => {
