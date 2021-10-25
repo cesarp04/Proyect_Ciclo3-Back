@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const dbURL = "mongodb://localhost:27017/proyecto_ciclo3";
+const dbURL =
+  process.env.URLMONGO || "mongodb://localhost:27017/proyecto_ciclo3";
 
 // Use ES6 promise for mongoose
 mongoose.Promise = global.Promise;

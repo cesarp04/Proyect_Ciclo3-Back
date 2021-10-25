@@ -5,7 +5,8 @@
   "author": "Cesar Puentes <caps2695@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./index.js"
+    "start": "node ./index.js",
+    "start:dev": "nodemon ./index.js"
   },
   "dependencies": {
     "express": "^4.17.1",

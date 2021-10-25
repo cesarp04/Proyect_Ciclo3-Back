@@ -2,7 +2,7 @@ const express = require("express");
 
 const routes = require("./routes");
 
-const port = 3070;
+const port = process.env.PORT || 19060;
 const app = express();
 
 app.use(express.json()); // for parsing application/json
