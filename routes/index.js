@@ -11,6 +11,6 @@ router.get("/", (req, res) => {
 
 // routes ventas
 router.get("/ventas", getVentasContorller);
-router.post("/ventasc", createVentasController);
+router.post("/ventas", createVentasController);
 
 module.exports = router;
