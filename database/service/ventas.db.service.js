@@ -32,7 +32,33 @@ async function createVentas(data) {
   });
 }
 
+async function updateVentas(id, data) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let filter = { CUSID_venta: id };
+      let document = {
+        documentoCliente: data.documentoCliente,
+        id_cliente: data.id_cliente,
+        clientName: data.clientName,
+        product: data.product,
+        estado: data.estado,
+        vendedor: data.vendedor,
+        valorVenta: data.valorVenta,
+      };
+      await ventasModel.updateOne(filter, document);
+      document.CUSID_venta = id;
+      resolve({
+        message: "Venta actualizada",
+        document,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 module.exports = {
   createVentas,
   getVentas,
+  updateVentas,
 };
