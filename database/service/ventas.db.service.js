@@ -15,6 +15,9 @@ async function getVentasById(id) {
   return new Promise(async (resolve, reject) => {
     try {
       const ventas = await ventasModel.find({ CUSID_venta: id });
+      if (ventas.length === 0) {
+        reject("No se encontro el registro o CUSID_venta");
+      }
       resolve(ventas);
     } catch (error) {
       reject(error);
