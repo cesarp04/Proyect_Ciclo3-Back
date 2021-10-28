@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
+const config = require("../config/general.config");
 
-const dbURL =
-  `${process.env.URLMONGO}/proyecto_ciclo3` ||
-  "mongodb://localhost:27017/proyecto_ciclo3";
+const dbURL = `${config.DB_URL}/proyecto_ciclo3`;
 
 // Use ES6 promise for mongoose
 mongoose.Promise = global.Promise;
@@ -22,7 +21,7 @@ mongoose
     console.log("Database connection successful");
   })
   .catch((err) => {
-    console.error(`Database connection ERROR in URLDB: ${dbURL}`);
+    console.error(`Database connection ERROR in URLDB: ${dbURL}`, err);
   });
 
 // signal connection
