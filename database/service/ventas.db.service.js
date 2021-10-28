@@ -11,6 +11,17 @@ async function getVentas() {
   });
 }
 
+async function getVentasById(id) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const ventas = await ventasModel.find({ CUSID_venta: id });
+      resolve(ventas);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 async function createVentas(data) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -45,7 +56,7 @@ async function updateVentas(id, data) {
       };
       const result = await ventasModel.findOneAndUpdate(filter, document);
       if (!result) {
-        reject("No se encontro el registro");
+        reject("No se encontro el registro o CUSID_venta");
       }
       resolve({
         message: "Venta actualizada",
@@ -61,4 +72,5 @@ module.exports = {
   createVentas,
   getVentas,
   updateVentas,
+  getVentasById,
 };
