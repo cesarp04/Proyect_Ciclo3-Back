@@ -15,13 +15,11 @@ async function createVentas(data) {
   return new Promise(async (resolve, reject) => {
     try {
       const ventas = await ventasModel.create(data);
-      await ventas.save((err, resultDB) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(resultDB);
+      await ventas.save();
+      resolve({
+        message: "Venta creada",
+        ventas,
       });
-      resolve(ventas);
     } catch (error) {
       if (error.keyPattern.CUSID_venta) {
         reject("CUSID_venta esta repetido");
@@ -45,11 +43,13 @@ async function updateVentas(id, data) {
         vendedor: data.vendedor,
         valorVenta: data.valorVenta,
       };
-      await ventasModel.updateOne(filter, document);
-      document.CUSID_venta = id;
+      const result = await ventasModel.findOneAndUpdate(filter, document);
+      if (!result) {
+        reject("No se encontro el registro");
+      }
       resolve({
         message: "Venta actualizada",
-        document,
+        result,
       });
     } catch (error) {
       reject(error);
