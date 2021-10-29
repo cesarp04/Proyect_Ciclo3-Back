@@ -48,22 +48,33 @@ async function updateVentas(id, data) {
   return new Promise(async (resolve, reject) => {
     try {
       let filter = { CUSID_venta: id };
-      let document = {
-        documentoCliente: data.documentoCliente,
-        id_cliente: data.id_cliente,
-        clientName: data.clientName,
-        product: data.product,
-        estado: data.estado,
-        vendedor: data.vendedor,
-        valorVenta: data.valorVenta,
-      };
-      const result = await ventasModel.findOneAndUpdate(filter, document);
+      const result = await ventasModel.findOneAndUpdate(filter, data);
+      console.log(result);
       if (!result) {
         reject("No se encontro el registro o CUSID_venta");
       }
       resolve({
         message: "Venta actualizada",
-        result,
+        "datos actualizados": data,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+async function deleteVentas(id, data) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let filter = { CUSID_venta: id };
+      const result = await ventasModel.findOneAndDelete(filter, data);
+      console.log(result);
+      if (!result) {
+        reject("No se encontro el registro o CUSID_venta");
+      }
+      resolve({
+        message: "Venta actualizada",
+        "datos actualizados": data,
       });
     } catch (error) {
       reject(error);
@@ -76,4 +87,5 @@ module.exports = {
   getVentas,
   updateVentas,
   getVentasById,
+  deleteVentas,
 };

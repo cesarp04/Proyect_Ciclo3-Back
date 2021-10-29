@@ -15,7 +15,7 @@ async function getVentasContorller(req, res) {
 async function getVentasByIdController(req, res) {
   try {
     const ventas = await getVentasById(req.params.id);
-    res.json(ventas);
+    res.json(ventas[0]);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -56,9 +56,25 @@ async function updateVentasController(req, res) {
   }
 }
 
+async function deleteVentasController(req, res) {
+  try {
+    let data = {};
+    data = req.body;
+
+    const ventas = await deleteVentas(data.CUSID_venta, data);
+    res.status(201).json(ventas);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error,
+    });
+  }
+}
+
 module.exports = {
   getVentasContorller,
   createVentasController,
   updateVentasController,
   getVentasByIdController,
+  deleteVentasController,
 };
